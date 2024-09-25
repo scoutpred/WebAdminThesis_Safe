@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>Admin Dashboard</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">AdminHub</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="index.html">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Overview</span>
+				</a>
+			</li>
+			<li>
+				<a href="pagetwo.html">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Voucher Registry</span>
+				</a>
+			</li>
+			<li>
+				<a href="pagetres.html">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Manage Establishment</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Administration Panel</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">0</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="img/people.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Administration Panel</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Voucher Registry</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>0</h3>
+						<p>Total Administered Employee</p>
+					</span>
+				</li>
+				
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+					
+					</div>
+					<table>
+						<body>
+							<head>
+								<meta charset="utf-8">
+								<meta name="viewport" content="width=device-width, initial-scale=1">
+								<title>Web Admin</title>
+							  
+								<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+								<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+								<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+								<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+							  
+								<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+							  
+								<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+								<!-- update the version number as needed -->
+								<script src="/__/firebase/7.8.1/firebase-app.js"></script>
+								<script src="/__/firebase/7.8.1/firebase-database.js"></script>
+								<script src="/__/firebase/init.js"></script>
+							  
+							  
+								
+								<style type="text/css">
+								  body {
+									color: #566787;
+									background: #f5f5f5;
+									font-family: 'Varela Round', sans-serif;
+									font-size: 13px;
+								  }
+							  
+								  .table-wrapper {
+									background: #fff;
+									padding: 20px 25px;
+									margin: 30px 0;
+									border-radius: 3px;
+									box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+								  }
+							  
+								  .table-title {
+									padding-bottom: 15px;
+									background: #435d7d;
+									color: #fff;
+									padding: 16px 30px;
+									margin: -20px -25px 10px;
+									border-radius: 3px 3px 0 0;
+								  }
+							  
+								  .table-title h2 {
+									margin: 5px 0 0;
+									font-size: 24px;
+								  }
+							  
+								  .table-title .btn-group {
+									float: right;
+								  }
+							  
+								  .table-title .btn {
+									color: #fff;
+									float: right;
+									font-size: 13px;
+									border: none;
+									min-width: 50px;
+									border-radius: 2px;
+									border: none;
+									outline: none !important;
+									margin-left: 10px;
+								  }
+							  
+								  .table-title .btn i {
+									float: left;
+									font-size: 21px;
+									margin-right: 5px;
+								  }
+							  
+								  .table-title .btn span {
+									float: left;
+									margin-top: 2px;
+								  }
+							  
+								  table.table tr th,
+								  table.table tr td {
+									border-color: #e9e9e9;
+									padding: 12px 15px;
+									vertical-align: middle;
+								  }
+							  
+								  table.table tr th:first-child {
+									width: 50px;
+								  }
+							  
+								  table.table tr th:last-child {
+									width: 80px;
+								  }
+							  
+								  table.table-striped tbody tr:nth-of-type(odd) {
+									background-color: #fcfcfc;
+								  }
+							  
+								  table.table-striped.table-hover tbody tr:hover {
+									background: #f5f5f5;
+								  }
+							  
+								  table.table th i {
+									font-size: 13px;
+									margin: 0 5px;
+									cursor: pointer;
+								  }
+							  
+								  table.table td:last-child i {
+									opacity: 0.9;
+									font-size: 22px;
+									margin: 0 5px;
+								  }
+							  
+								  table.table td a {
+									font-weight: bold;
+									color: #566787;
+									display: inline-block;
+									text-decoration: none;
+									outline: none !important;
+								  }
+							  
+								  table.table td a:hover {
+									color: #2196F3;
+								  }
+							  
+								  table.table td a.edit {
+									color: #FFC107;
+								  }
+							  
+								  table.table td a.delete {
+									color: #F44336;
+								  }
+							  
+								  table.table td i {
+									font-size: 19px;
+								  }
+							  
+								  table.table .avatar {
+									border-radius: 50%;
+									vertical-align: middle;
+									margin-right: 10px;
+								  }
+							  
+								  .pagination {
+									float: right;
+									margin: 0 0 5px;
+								  }
+							  
+								  .pagination li a {
+									border: none;
+									font-size: 13px;
+									min-width: 30px;
+									min-height: 30px;
+									color: #999;
+									margin: 0 2px;
+									line-height: 30px;
+									border-radius: 2px !important;
+									text-align: center;
+									padding: 0 6px;
+								  }
+							  
+								  .pagination li a:hover {
+									color: #666;
+								  }
+							  
+								  .pagination li.active a,
+								  .pagination li.active a.page-link {
+									background: #03A9F4;
+								  }
+							  
+								  .pagination li.active a:hover {
+									background: #0397d6;
+								  }
+							  
+								  .pagination li.disabled i {
+									color: #ccc;
+								  }
+							  
+								  .pagination li i {
+									font-size: 16px;
+									padding-top: 6px
+								  }
+							  
+								  .hint-text {
+									float: left;
+									margin-top: 10px;
+									font-size: 13px;
+								  }
+							  
+								  /* Custom checkbox */
+								  .custom-checkbox {
+									position: relative;
+								  }
+							  
+								  .custom-checkbox input[type="checkbox"] {
+									opacity: 0;
+									position: absolute;
+									margin: 5px 0 0 3px;
+									z-index: 9;
+								  }
+							  
+								  .custom-checkbox label:before {
+									width: 18px;
+									height: 18px;
+								  }
+							  
+								  .custom-checkbox label:before {
+									content: '';
+									margin-right: 10px;
+									display: inline-block;
+									vertical-align: text-top;
+									background: white;
+									border: 1px solid #bbb;
+									border-radius: 2px;
+									box-sizing: border-box;
+									z-index: 2;
+								  }
+							  
+								  .custom-checkbox input[type="checkbox"]:checked+label:after {
+									content: '';
+									position: absolute;
+									left: 6px;
+									top: 3px;
+									width: 6px;
+									height: 11px;
+									border: solid #000;
+									border-width: 0 3px 3px 0;
+									transform: inherit;
+									z-index: 3;
+									transform: rotateZ(45deg);
+								  }
+							  
+								  .custom-checkbox input[type="checkbox"]:checked+label:before {
+									border-color: #03A9F4;
+									background: #03A9F4;
+								  }
+							  
+								  .custom-checkbox input[type="checkbox"]:checked+label:after {
+									border-color: #fff;
+								  }
+							  
+								  .custom-checkbox input[type="checkbox"]:disabled+label:before {
+									color: #b8b8b8;
+									cursor: auto;
+									box-shadow: none;
+									background: #ddd;
+								  }
+							  
+								  /* Modal styles */
+								  .modal .modal-dialog {
+									max-width: 400px;
+								  }
+							  
+								  .modal .modal-header,
+								  .modal .modal-body,
+								  .modal .modal-footer {
+									padding: 20px 30px;
+								  }
+							  
+								  .modal .modal-content {
+									border-radius: 3px;
+								  }
+							  
+								  .modal .modal-footer {
+									background: #ecf0f1;
+									border-radius: 0 0 3px 3px;
+								  }
+							  
+								  .modal .modal-title {
+									display: inline-block;
+								  }
+							  
+								  .modal .form-control {
+									border-radius: 2px;
+									box-shadow: none;
+									border-color: #dddddd;
+								  }
+							  
+								  .modal textarea.form-control {
+									resize: vertical;
+								  }
+							  
+								  .modal .btn {
+									border-radius: 2px;
+									min-width: 100px;
+								  }
+							  
+								  .modal form label {
+									font-weight: normal;
+								  }
+								</style>
+							  
+								<script type="text/javascript">
+								  $(document).ready(function () {
+									// Activate tooltip
+									//$('[data-toggle="tooltip"]').tooltip();
+								   
+								  });
+								</script>
+							  </head>
+							  
+							  <body>
+							  
+							  
+							  
+							  
+							  
+								<div class="container">
+								  <div class="table-wrapper">
+									<div class="table-title">
+									  <div class="row">
+										<div class="col-sm-6">
+										  <h2>Manage <b>Employees</b></h2>
+										</div>
+										<div class="col-sm-6">
+										  <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+											  class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+										  <a href="#deleteAllEmployeeModal" class="btn btn-danger delAll" data-toggle="modal"><i
+											  class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+										</div>
+									  </div>
+									</div>
+									<table id="table1" class="table table-striped table-hover">
+									  <thead>
+										<tr>
+									      <th>Emp. ID</th>
+										  <th>Name</th>
+										  <th>Email</th>
+										  <th>Gender</th>
+										  <th>Department</th>
+										  <th>Work Position</th>
+										  <th>Accnt. Password </th>
+										  <th>Contact No.</th>
+										  
+										</tr>
+									  </thead>
+									  <tbody id="emp-table">
+							  
+							  
+									  </tbody>
+									</table>
+							  
+								  </div>
+								</div>
+								<!-- Edit Modal HTML -->
+								<div id="addEmployeeModal" class="modal fade">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <form>
+										<div class="modal-header">
+										  <h4 class="modal-title">Add Employee</h4>
+										  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										</div>
+										<div id="add-form" class="modal-body">
+											<div class="form-group">
+												<label>Emp. ID</label>
+												<input type="text" id="phone" class="form-control" required>
+											  </div>
+										  <div  class="form-group">
+											<label>Name</label>
+											<input id="name" type="text" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Email</label>
+											<input type="email" id="email" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Gender</label>
+											<input type="email" id="email" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Department</label>
+											<input type="email" id="email" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Work Position</label>
+											<textarea id="address" class="form-control" required></textarea>
+										  </div>
+										  <div class="form-group">
+											<label>Accnt. Password</label>
+											<input type="text" id="phone" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Contact No.</label>
+											<input type="text" id="phone" class="form-control" required>
+										  </div>
+										</div>
+										<div class="modal-footer">
+										  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+										  <input type="button" data-dismiss="modal" id="add_emp" class="btn btn-success" value="Add">
+										</div>
+									  </form>
+									</div>
+								  </div>
+								</div>
+								<!-- Edit Modal HTML -->
+								<div id="editEmployeeModal" class="modal fade">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <form>
+										<div class="modal-header">
+										  <h4 class="modal-title">Edit Employee</h4>
+										  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label>Emp. ID</label>
+												<input type="text" class="form-control" required>
+											  </div>
+										  <div class="form-group">
+											<label>Name</label>
+											<input type="text" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Email</label>
+											<input type="email" class="form-control" required>
+										  </div>
+										  <label>Gender</label>
+											<input type="email" class="form-control" required>
+										  </div>
+										  <label>Department</label>
+											<input type="email" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Work Position</label>
+											<textarea class="form-control" required></textarea>
+										  </div>
+										  <div class="form-group">
+											<label>Accnt. Password</label>
+											<input type="text" class="form-control" required>
+										  </div>
+										  <div class="form-group">
+											<label>Contact No.</label>
+											<input type="text" class="form-control" required>
+										  </div>
+										</div>
+										<div class="modal-footer">
+										  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+										  <input type="submit" class="btn btn-info" value="Save">
+										</div>
+									  </form>
+									</div>
+								  </div>
+								</div>
+								<!-- Delete Modal HTML -->
+								<div id="deleteEmployeeModal" class="modal fade">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <form>
+										<div class="modal-header">
+										  <h4 class="modal-title">Delete Employee</h4>
+										  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										</div>
+										<div class="modal-body">
+										  <p>Are you sure you want to delete these Records?</p>
+										  <p class="text-warning"><small>This action cannot be undone.</small></p>
+										</div>
+										<div class="modal-footer">
+										  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+										  <input type="submit" class="btn btn-danger" value="Delete">
+										</div>
+									  </form>
+									</div>
+								  </div>
+								</div>
+							   <!-- Delete Modal HTML -->
+							   <div id="deleteAllEmployeeModal" class="modal fade">
+								<div class="modal-dialog">
+								  <div class="modal-content">
+									<form>
+									  <div class="modal-header">
+										<h4 class="modal-title">Delete Employee</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									  </div>
+									  <div class="modal-body">
+										<p>Are you sure you want to delete these Records?</p>
+										<p class="text-warning"><small>This action cannot be undone.</small></p>
+									  </div>
+									  <div class="modal-footer">
+										<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+										<input type="submit" class="btn btn-danger dltAllData" value="Delete">
+									  </div>
+									</form>
+								  </div>
+								</div>
+							  </div>
+							  
+							  
+							  
+							  
+							  </body>
+							  <script src="empcrud.js"></script>
+						</body>
+						<!-- CRUD Table-->
+					</table>
+				</div>
+				
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script src="script.js"></script>
+</body>
+</html>
